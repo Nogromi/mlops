@@ -1,0 +1,44 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: 03-orchestration
+prefect-version: 2.14.12
+
+# build section allows you to manage and build docker images
+build:
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push:
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: git@github.com:DataTalksClub/mlops-zoomcamp.git
+    branch: main
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: taxi_local_data
+  entrypoint: 3.4/orchestrate.py:main_flow
+  work_pool:
+    name: taxi-traipdata
+    work_queue_name:
+    job_variables: {}
+  version:
+  tags: []
+  description: The main training pipeline
+  parameters: {}
+  schedule:
+- name: taxi_s3_data
+  entrypoint: 3.5/orchestrate_s3.py:main_flow_s3
+  work_pool:
+    name: taxi-traipdata
+    work_queue_name:
+    job_variables: {}
+  version:
+  tags: []
+  description: The main training pipeline
+  parameters: {}
+  schedule:
