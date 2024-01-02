@@ -21,7 +21,7 @@ pull:
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
 - name: taxi_local_data
-  entrypoint: 3.4/orchestrate.py:main_flow
+  entrypoint: 03-orchestration/3.4/orchestrate.py:main_flow
   work_pool:
     name: taxi-traipdata
     work_queue_name:
@@ -32,7 +32,7 @@ deployments:
   parameters: {}
   schedule:
 - name: taxi_s3_data
-  entrypoint: 3.5/orchestrate_s3.py:main_flow_s3
+  entrypoint: 03-orchestration/3.5/orchestrate_s3.py:main_flow_s3
   work_pool:
     name: taxi-traipdata
     work_queue_name:
